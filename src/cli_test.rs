@@ -24,8 +24,7 @@ fn test_increment_major() {
 
     for case in test_cases {
         let input = semver::Version::parse(case.input.as_str()).expect("failed to parse version");
-        let expected =
-            semver::Version::parse(case.expected.as_str()).expect("failed to parse version");
+        let expected = semver::Version::parse(case.expected.as_str()).expect("failed to parse version");
         let result = increment_major(input);
         assert_eq!(result, expected)
     }
@@ -50,8 +49,7 @@ fn test_increment_minor() {
 
     for case in test_cases {
         let input = semver::Version::parse(case.input.as_str()).expect("failed to parse version");
-        let expected =
-            semver::Version::parse(case.expected.as_str()).expect("failed to parse version");
+        let expected = semver::Version::parse(case.expected.as_str()).expect("failed to parse version");
         let result = increment_minor(input);
         assert_eq!(result, expected)
     }
@@ -76,8 +74,7 @@ fn test_increment_patch() {
 
     for case in test_cases {
         let input = semver::Version::parse(case.input.as_str()).expect("failed to parse version");
-        let expected =
-            semver::Version::parse(case.expected.as_str()).expect("failed to parse version");
+        let expected = semver::Version::parse(case.expected.as_str()).expect("failed to parse version");
         let result = increment_patch(input);
         assert_eq!(result, expected)
     }
