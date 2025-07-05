@@ -124,6 +124,14 @@ changelog: ## Create changelog
     --output="CHANGELOG.md" \
     --tag "$(BINARY_VERSION)"
 
+.PHONY: patch-notes
+patch-notes: ## Create patch notes
+	@git-cliff \
+    --config "cliff.toml" \
+    --unreleased \
+    --tag "$(BINARY_VERSION)" \
+    | tail -n+6
+
 .PHONY: check
 check: ## Quick check without building
 	@cargo check --all-targets
