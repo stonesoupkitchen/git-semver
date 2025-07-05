@@ -1,6 +1,7 @@
-/target/
-Cargo.lock
+debug
+target
 **/*.rs.bk
+.pdb
+**/mutants.out*/
 .cache
-custom_config.toml
 .DS_Store

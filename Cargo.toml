@@ -23,7 +23,7 @@ anyhow = "1.0"
 better-panic = "0.3"
 clap = { version = "4.4", features = ["derive"] }
 log = "0.4"
-gix = "0.57"
+gix = "0.72"
 semver = "1.0"
 
 [profile.dev]
@@ -49,4 +49,3 @@ rpath = false
 lto = false
 debug-assertions = true
 codegen-units = 4
-

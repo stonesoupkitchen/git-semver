@@ -27,8 +27,8 @@ pub fn get_args() -> Result<Args> {
 }
 
 pub fn run(args: Args) -> Result<()> {
-    let curdir = env::current_dir()?;
-    let repo = gix::discover(curdir)?;
+    let curdir = env::current_dir().expect("failed to fetch current directory");
+    let repo = gix::discover(curdir).expect("failed to locate git repo");
     let mut latest_tag = repo.head_commit()?.describe().names(AllTags);
     let version = parse_semver_tag(&latest_tag.format()?.to_string())?;
 
@@ -48,6 +48,6 @@ pub fn run(args: Args) -> Result<()> {
         version.patch
     };
 
-    println!("v{}.{}.{}", major, minor, patch);
+    println!("v{major}.{minor}.{patch}");
     Ok(())
 }

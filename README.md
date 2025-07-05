@@ -37,4 +37,3 @@ In the former, tests will also be run.
 ## License
 
 See [LICENSE](./LICENSE).
-
