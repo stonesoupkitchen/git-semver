@@ -30,24 +30,47 @@ pub fn run(args: Args) -> Result<()> {
     let curdir = env::current_dir().expect("failed to fetch current directory");
     let repo = gix::discover(curdir).expect("failed to locate git repo");
     let mut latest_tag = repo.head_commit()?.describe().names(AllTags);
-    let version = parse_semver_tag(&latest_tag.format()?.to_string())?;
+    let mut version = parse_semver_tag(&latest_tag.format()?.to_string())?;
 
-    let major = if args.major {
-        version.major + 1
-    } else {
-        version.major
-    };
-    let minor = if args.minor {
-        version.minor + 1
-    } else {
-        version.minor
-    };
-    let patch = if args.patch {
-        version.patch + 1
-    } else {
-        version.patch
-    };
+    if args.major {
+        version = increment_major(version)
+    }
+    if args.minor {
+        version = increment_minor(version)
+    }
+    if args.patch {
+        version = increment_patch(version)
+    }
+
+    let major = version.major;
+    let minor = version.minor;
+    let patch = version.patch;
 
     println!("v{major}.{minor}.{patch}");
     Ok(())
 }
+
+fn increment_major(version: semver::Version) -> semver::Version {
+    let mut clone = version.clone();
+    clone.major += 1;
+    clone.minor = 0;
+    clone.patch = 0;
+    clone
+}
+
+fn increment_minor(version: semver::Version) -> semver::Version {
+    let mut clone = version.clone();
+    clone.minor += 1;
+    clone.patch = 0;
+    clone
+}
+
+fn increment_patch(version: semver::Version) -> semver::Version {
+    let mut clone = version.clone();
+    clone.patch += 1;
+    clone
+}
+
+#[cfg(test)]
+#[path = "cli_test.rs"]
+mod cli_test;
